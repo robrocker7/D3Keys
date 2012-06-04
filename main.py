@@ -8,6 +8,7 @@ class App:
     def __init__(self, master):
         # VARIABLES
         self.master = master
+        self.master.wm_attributes("-topmost", 1)
         self.left_down = False
         self.right_down = False
 
@@ -17,13 +18,13 @@ class App:
         # DISABLE RESIZE
         self.master.resizable(0,0)
 
+        # BIND MOUSE
+        self.master.bind_all('<Any-ButtonPress>', self.button_press)
+        self.master.bind_all('<Any-ButtonRelease>', self.button_release)
+
         # BIND KEYS
         self.master.bind_all('<Any-KeyPress>', self.key_stroke)
         self.master.bind_all('<Any-KeyRelease>', self.key_release)
-
-        # BIND Mouse
-        self.master.bind_all('<Any-ButtonPress>', self.button_press)
-        self.master.bind_all('<Any-ButtonRelease>', self.button_release)
 
         # GATHER IMAGES AND WRITE THEM TO APP
         self.gather_resources() 
@@ -121,8 +122,8 @@ class App:
         self.hold_key = Label(self.master, image=self.hold_image)
         self.hold_key.pack(side=LEFT)
 
-root = Tk()
+if __name__ == '__main__':
 
-app = App(root)
-
-root.mainloop()
+    root = Tk()
+    app = App(root)
+    root.mainloop()
